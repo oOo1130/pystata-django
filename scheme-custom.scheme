@@ -1,0 +1,159 @@
+#include s2color
+
+color background  "51 51 51"
+color major_grid  "200 200 200"
+color             black
+
+color foreground  "63 63 63"
+
+color symbol         "65 251 0"
+color backsymbol     gs8
+
+color text             "65 251 0"
+color body             "65 251 0"
+color hrule            "65 251 0"
+color small_body       "65 251 0"
+color heading          "65 251 0"
+color subheading       "65 251 0"
+color axis_title       "65 251 0"
+color matrix_label     "65 251 0"
+color label            "65 251 0"
+color key_label        "65 251 0"
+color tick_label       "65 251 0"
+color tick_biglabel    "65 251 0"
+color matrix_marklbl   "65 251 0"
+color sts_risk_label   "65 251 0"
+color sts_risk_title   "65 251 0"
+
+color box              "63 63 63"
+color textbox          "63 63 63"
+color mat_label_box    "63 63 63"
+
+color text_option      "63 63 63"
+color text_option_line "63 63 63"
+color text_option_fill "63 63 63"
+
+color filled_text        "63 63 63"
+color filled             "63 63 63"
+color bylabel_outline    "63 63 63"
+
+color reverse_big        navy
+color reverse_big_line   navy
+color reverse_big_text   white
+
+color minor_grid   gs5
+
+color axisline     "65 251 0"
+color tick         "65 251 0"
+color minortick    "65 251 0"
+
+color ci_line        gs8
+color ci_arealine    gs12
+color ci_area        gs12
+color ci_symbol      gs8
+color ci2_line       khaki
+color ci2_arealine   ltkhaki
+color ci2_area       ltkhaki
+color ci2_symbol     khaki
+
+color fpbody         black
+color fpcoltitle     black
+color fpgraph        "63 63 63"
+color fp             navy
+color fp_line        navy
+color fp_symbol      navy 
+color fpgrp          maroon
+color fpgrp_arealine maroon
+color fpgrp_area     maroon
+color fpgrp_line     maroon
+color fpgrp_symbol   maroon
+color fpall          forest_green
+color fpall_arealine forest_green
+color fpall_area     forest_green
+color fpall_line     forest_green
+color fpall_symbol   forest_green
+color fphrule        black
+color fptextbox      white
+color fpspacer       none
+color fpesrefline    cranberry
+color fpnullrefline  gs8
+color fpnulllefttext  black
+color fpnullrighttext black
+color fpesinside_symbol dkorange 
+color fpesinside_line dkorange 
+
+color pieline        none
+
+color matrix         navy    
+color matrixmarkline navy    
+color refmarker      cranberry
+color refmarkline    black
+color histogram      khaki
+color histback       gold
+color histogram_line stone
+color dot_line       gs8
+color dot_arealine   gs8
+color dot_area       gs4
+color dotmarkline    black
+
+color xyline         cranberry
+color refline        emerald
+color cvcvline       red
+color cvlsline       black
+color cvseline       blue
+color dots           black
+
+color plotregion         white
+color plotregion_line    white
+color matrix_plotregion  white
+color matplotregion_line black
+color legend             white
+color legend_line        black
+color clegend            white
+color clegend_outer      none
+color clegend_inner      none
+color clegend_line       black
+
+color contour_begin      blue
+color contour_end        red
+color zyx2               black
+
+color sunflower      blue
+color sunflowerlb    sunflowerlime
+color sunflowerlf    chocolate
+color sunflowerdb    orange
+color sunflowerdf    black
+
+color p       gs6
+color p1      navy
+color p2      maroon
+color p3      forest_green
+color p4      dkorange
+color p5      teal
+color p6      cranberry
+color p7      lavender
+color p8      khaki
+color p9      sienna
+color p10     emidblue
+color p11     emerald
+color p12     brown
+color p13     erose
+color p14     gold
+color p15     "63 63 63"
+
+color pboxlabelfill  "63 63 63"
+color plabelfill     "63 63 63"
+
+color pmarkback      white
+color pmarkbkfill    white
+
+color funnel_contour gs6
+
+
+
+anglestyle vertical_tick    horizontal
+
+clockdir   legend_position  4
+numstyle   legend_cols      1
+linestyle  legend           none
+margin     legend           "5 0 0 0"

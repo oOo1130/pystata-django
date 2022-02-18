@@ -1,0 +1,189 @@
+<!-- modal dialog -->
+<div class="modal fade-scale" id="commandModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-header-button">
+                    <button type="button" class="full-screen"><i class="bi bi-fullscreen"></i></button>
+                </div>
+                <button type="button" class="close modalclose" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title text-format text-center">Command History</h3>
+            </div>
+            <div class="modal-body">
+                <ul class="nav flex-column commandHistoryBar">
+                    {% for command in command_history %}
+                        <li class="nav-item btn">
+                            <div class="row text-format">
+                                <div class="col-sm-4">
+                                    {{ command.0 }}
+                                </div>
+                                <div class="col-sm-4">
+                                    {{ command.1 }}
+                                </div>
+                                <div class="col-sm-4">
+                                    {{ command.2 }}
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade-scale" id="resultModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-header-button">
+                    <button type="button" class="full-screen"><i class="bi bi-fullscreen"></i></button>
+                </div>
+                <button type="button" class="close modalclose" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title text-format text-center">Result History</h3>
+            </div>
+            <div class="modal-body commandResultsBox text-format">
+                <pre id="result-history">{{ result_history }}</pre>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End modal dialog -->
+<div class="modal fade-scale" id="graphModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-header-button">
+                    <button type="button" class="full-screen"><i class="bi bi-fullscreen"></i></button>
+                </div>
+                <button type="button" class="close btn-close-white modalclose" data-dismiss="modal" onclick="closeFullscreen();">&times;</button>
+                <h3 class="modal-title text-format text-center">Graph</h3>
+            </div>
+
+            <div class="modal-body text-format">
+                <div id="graph-control">
+                </div>
+                <div id="modal-graph"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade-scale" id="statusModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-header-button">
+                    <button type="button" class="full-screen"><i class="bi bi-fullscreen"></i></button>
+                </div>
+                <h3 class="text-center text-format modal-title">Stata Information</h3>
+                <button type="button" class="close modalclose" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body commandResultsBox text-format">
+                <pre style="text-align:left;">{{ stata_status }}</pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade-scale" id="do-manager" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="text-center text-format modal-title">Do File Manager</h3>
+                <div class="modal-header-button">
+                    <button type="button" class="full-screen"><i class="bi bi-fullscreen"></i></button>
+                </div>
+                <button type="button" class="close modalclose" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form class="form">
+                    <div class="row">
+                        <div class="col-md-4 col-lg-4">
+                            <div id="browser">
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button id="reload-files" class="btn btn-default" type="button"><i class="glyphicon glyphicon-refresh"></i> Reload</button>
+                                        <button id="btn-create" class="btn btn-default" type="button"><i class="glyphicon glyphicon-plus"></i> Add</button>
+                                  </span>
+                                    <input id="new-file" type="text" class="form-control" placeholder="Input a file name...">
+                                </div><!-- /input-group -->
+                                <br>
+                                <div class="list-group" id="file-list">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8 col-lg-8">
+                            <div id="file-text" style="width: 100%; height: 750px;"></div>
+                            <div class="row">
+                                <br>
+                                <div class="col-md-4">
+                                    <button id="btn-save" class="form-control btn btn-default-lg"><i
+                                            class="glyphicon glyphicon-save"></i> Save
+                                    </button>
+                                </div>
+                                <div class="col-md-4">
+                                    <button id="btn-delete" class="form-control btn btn-default-lg"><i
+                                            class="glyphicon glyphicon-trash"></i> Delete
+                                    </button>
+                                </div>
+                                <div class="col-md-4">
+                                    <button id="btn-run" class="form-control btn btn-default-lg" type="button"><i
+                                            class="glyphicon glyphicon-cog"></i> Run
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- mainnet modal -->
+<div class="modal fade-scale" id="databaseModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header db-title">
+            </div>
+            <div class="modal-body">
+                <form class="form">
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12">
+                            <div class="databaseTable" id="dataTable">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add tag Modal start -->
+<!-- modal dialog -->
+<div class="modal fade-scale" id="addtagModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header addtag-title">
+            </div>
+            <div class="modal-body">
+                <form class="form">
+                    <div id="browser">
+                        <div class="list-group" id="tag-list">
+                            <ul class="nav flex-column tagbar"></ul>
+                            <input type="text" class="tagName" placeholder="Please input tag name...">
+                            <button type="button" class="btn btn-addtag-h btn-lg mbtn" id="sendTagBtn"
+                                style="font-size:14px">
+                                Add to Tag
+                            </button>
+                        </div>
+                    </div>    
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Add tag Modal end -->

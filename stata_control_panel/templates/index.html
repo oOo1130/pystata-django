@@ -1,0 +1,271 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+    <!-- main section -->
+    <section id="mainSection">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- .col-sm-2 start -->
+                <div class="col-sm-2 left-panel">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        {% for tag_data in tagData %}
+                        <li class="{{tag_data.name}}">
+                            <button class="nav-link filterTab" id="{{tag_data.name}}-tab" data-bs-toggle="tab"
+                                    data-bs-target="#{{tag_data.name}}"
+                                    type="button" role="tab" aria-controls="{{tag_data.name}}" aria-selected="false">{{tag_data.name}}
+                            </button>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    <div class="tab-content customsidebar" id="myTabContent">
+                        {% for tag_data in tagData %}
+                        <div class="tab-pane" id="{{tag_data.name}}" role="tabpanel" aria-labelledby="{{tag_data.name}}-tab">
+                            <ul class="nav flex-column">
+                                {% for tag_title in tag_data.title %}
+                                <li class="nav-item btn btn-sm">
+                                    <a href="#" class="nav-link btn-val-shortcut" data-val="{{tag_title}}" data-type="val" draggable="true" ondragstart="drag(event)">{{tag_title}}</a>
+                                </li>
+                                {% endfor %}
+                            </ul> 
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="rankingselection" id="rankSelectionContent">
+                        <h5>Ranking Selection</h5>
+                        <div class="rank_variables d-flex">
+                            <input type="text" placeholder="Min" class="form-control" id="rank_min">
+                            <input type="text" placeholder="Max" class="form-control" id="rank_max">
+                        </div>
+                    </div>
+                </div>
+                <!-- .col-sm-2 for left sidebar -->
+
+                <div class="col-sm-8 mycl">
+                    <pre>
+                        <a class="text-format btn" data-toggle="modal" data-target="#statusModal"
+                            style="font-size:2rem; float: right;"><i class="icons icon-question"></i></a>
+  ___  ____  ____  ____  ____ ®
+ /__    /   ____/   /   ____/
+___/   /   /___/   /   /___/       {{ stata_version }}  ENV >>>> FILE: <span>{{ request.session.db_file | default:'EQUUS DATA.csv' }}</span>
+                    </pre>
+
+                    <div id="drawflow" ondrop="drop(event)" ondragover="allowDrop(event)">
+                    </div>
+
+                    <div class="col text-center">
+                        <span class="h-btn">Main Net</span>
+                    </div>
+
+                    <div class="STATA">
+                        <p class="myColor text-format"> STATA COMMAND BUTTONS </p>
+                        <div class="Logistic">
+                            <div class="btn-group-sm">
+                                {% for command in command_list %}
+                                    {% if command == 'graph' %}
+                                        <button class="btn btn-sm btn-customize btn-command-shortcut"
+                                                data-command="{{ command }}" data-val="{{ command }}" data-type="graph"
+                                                draggable="true" ondragstart="drag(event)">{{ command }}</button>
+
+                                    {% else %}
+                                        <button class="btn btn-sm btn-customize btn-command-shortcut"
+                                                data-command="{{ command }}" data-val="{{ command }}"
+                                                data-type="command"
+                                                draggable="true" ondragstart="drag(event)">{{ command }}</button>
+                                    {% endif %}
+                                {% endfor %}
+                            <button class="btn btn-sm btn-customize btn-command-shortcut"
+                                                data-command="3D graph" data-val="3D graph" data-type="graph"
+                                                draggable="true" ondragstart="drag(event)">3D graph</button>
+                            </div>
+                        </div>  <!-- logistic -->
+                        <a href="javascript:void(0);" class="text-format btn flow-clear"
+                           onclick="editor.clearModuleSelected(); init_net();"><i
+                                class="icons icon-refresh"></i></a>
+                    </div> <!-- stata -->
+                </div>
+                <!-- col-sm-7 middle elements end -->
+
+                <!-- last elements of main content section -->
+                <div class="col-sm-2 right-panel">
+                    <div class="logout">
+                        <a class="text-format btn mt-1" href="/logout" style="font-size:1.5rem; float: right"><i
+                            class="icons icon-logout"></i></a>
+                    </div>
+                    
+                    <div class="lastElementsContent text-format mt-1">
+                        <ul class="nav nav-tabs mt-1" id="rightTab" role="tablist">
+                            <li class="active nav-item" role="presentation">
+                                <a data-toggle="tab" href="#parameters">PARAMETERS</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a data-toggle="tab" href="#database">DATABASE</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="parameters" class="tab-pane active">
+                                <p class="mt-1"> PARAMETERS </p>
+                                <div class="form-check mt-1">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        system
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"
+                                           checked>
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        group
+                                    </label>
+                                </div>
+        
+                                <div class="date-range">
+                                    <p>Date Range</p>
+                                    <div class="form-group">
+                                        <label class="col-sm-3">from</label>
+                                        <div class='col-sm-9 input-group'>
+                                            <input type='text' class="form-control date" id="date_from"
+                                                   value="{{ request.session.date_range.0 }}"/>
+                                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3">to</label>
+                                        <div class='col-sm-9 input-group'>
+                                            <input type='text' class="form-control date" id="date_to"
+                                                   value="{{ request.session.date_range.1 }}"/>
+                                            <span class="input-group-addon"><span
+                                                    class="glyphicon glyphicon-calendar"></span></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group text-center btn-sm btn-customize" data-type="date" draggable="true"
+                                         ondragstart="drag(event)">
+                                        <i class="icons icon-link"></i> Drop to Main net
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="database" class="tab-pane">
+                                <div class="db-manager">
+                                    <p class="mt-1"> DATABASES </p>
+                                    <form action="upload_database" class="form db-upload-form" method="post">
+                                        <div class="form-group">
+                                            <label>Upload Database(*.csv, *.dta)</label>
+                                            <input id="fileupload" type="file" class="form-control"  name="file" accept=".csv,.dta">
+                                        </div>
+                                        <button type="submit" class="btn btn-default">Upload</button>
+                                    </form>
+                                    <ul class="db-list-group">
+                                        {% for db in db_files %}
+                                            <li data-val="{{ db.filename }}" data-type="data" draggable="true" ondragstart="drag(event)">
+                                                {{ db.filename }}
+                                                <a href="javascript:;" class="btn remove" data-id="{{ db.id }}"><i class="glyphicon glyphicon-trash"></i></a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <button class="btn btn-customize-h btn-apply" type="submit">Apply</button> -->
+                        
+                    </div>
+                </div>
+                <!-- Last Elements End -->
+
+            </div> <!-- Main Container Fluid -->
+        </div>
+    </section> <!-- Section End -->
+
+    <!--
+      ==================================
+      Command AND RESULTS SECTION BELOW *
+     ===================================
+     -->
+
+    <section id="CommandResults">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="title-bar">
+                        <p class="myColor text-center text-format"> Command </p>
+                        <button class="btn btn-customize btn-history" data-toggle="modal" data-target="#commandModal"><i
+                                class="bi-clock-history"></i></button>
+                    </div>
+                    <div class="commandResultsBox">
+                        <form id="command-form" method="post" name="stataCommand">
+                            {% csrf_token %}
+                            <div class="form-group">
+                            <textarea id="command_input" class="form-control customCommand"
+                                      style="width:100%; color:#41FB00;background:#3F3F3F;font-weight:bolder; min-height: 170px; border: none; font-size: 12px;"
+                                      name="command"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                </div><!-- command end -->
+
+                <div class="col-sm-4">
+                    <div class="title-bar">
+                        <p class="myColor text-center text-format"> Results </p>
+                        <button class="btn btn-customize btn-history" text="history" data-toggle="modal"
+                                data-target="#resultModal"><i class="bi-clock-history"></i></button>
+                    </div>
+
+                    <div class="commandResultsBox scrollbar text-format">
+                        <pre id="stata-result" style="text-align: left;"></pre>
+                    </div>
+                </div> <!-- results end -->
+
+                <div class="col-sm-4">
+                    <div class="title-bar">
+                        <p class="myColor text-center text-format"> Graph </p>
+                        <button class="btn btn-customize btn-history" id="btn-graph-modal" text="graphics"
+                                data-toggle="modal"
+                                data-target="#graphModal"><i class="bi-zoom-in"></i></button>
+                    </div>
+
+                    <div class="commandResultsBox scrollbar text-format graph-panel">
+                        <div id="panel-graph"></div>
+                    </div>
+                </div> <!-- results end -->
+
+            </div> <!-- row -->
+
+            <div class="row">
+                <div class="col-sm-2">
+                    <button type="button" class="btn btn-customize-h btn-lg mbtn" id="button" onClick="sendData()"
+                            style="font-size:14px">
+                        Run
+                    </button>
+                </div>
+                <div class="col-sm-4">
+                    <form method="post">
+                        {% csrf_token %}
+                        <button class="btn btn-customize-h btn-lg mbtn" type="submit" name="reset" value="Reset"
+                                id="btn-reset" style="font-size:14px">Reset
+                        </button>
+                    </form>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-customize-h btn-lg mbtn" id="do-filemanager" data-toggle="modal" data-target="#do-manager">
+                        Do file manager
+                    </button>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-customize-h btn-lg mbtn" id="save-mainnet">
+                        Save Main Net
+                    </button>
+                </div>
+            </div>
+        </div> <!-- container -->
+    </section>
+
+    <!-- overrlay code -->
+    <div id="loadingDiv">
+        <div class="cv-spinner">
+            <span class="spinner"></span>
+        </div>
+    </div>
+    <!-- overlay code end -->
+    {% include "modals.html" %}
+    {% include "footer.html" %}
+{% endblock %}

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="{% static  'css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static  'css/login.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static  'css/core.css' %}" rel="stylesheet" type="text/css">
+    <title>Welcome</title>
+  </head>
+  <body>
+
+    <!-- main section -->
+    <section id="loginSection">
+      <div class="pin-form">
+        <h1 class="text-format text-center">P I N</h1>
+        <form action="/pin_request/" method="POST">
+          {%csrf_token %}
+          {{ form.non_field_errors }}
+          <div class="fieldWrapper">
+            {% if form.pin.errors %}
+            {% for error in form.pin.errors %}
+              <p class="alert alert-danger">{{ error | escape }}</p>
+            {% endfor %}
+            {% endif%}
+            
+            <input class="form-control" type="text" name="pin" maxlength="4" value="{{ form.pin.value }}">
+          </div>
+          <br>
+          <input class="btn text-format form-control" type="submit" value="ENTER">
+        </form>
+      </div>
+    </section>
+
+
+  </body>
+</html>

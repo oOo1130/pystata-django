@@ -1,0 +1,7 @@
+{% for file in files %}
+    <a href="javascript:;" class="list-group-item file-item" data-filename="{{ file.0 }}">
+        <i class="glyphicon glyphicon-file"></i> {{ file.0 }}
+        <span class="file-modified">Modified: {{ file.2 }}
+        </span>
+    </a>
+{% endfor %}

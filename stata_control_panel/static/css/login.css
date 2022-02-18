@@ -1,0 +1,16 @@
+section#loginSection {
+	display: flex;
+  	align-items: center;
+  	justify-content: center;
+
+}
+.pin-form {
+	position: absolute;
+  	top: 40%;
+	max-width: 50%;
+	-ms-transform: translateY(-50%);	
+  	transform: translateY(-50%);
+}
+.pin-form h1 {
+	background-color: transparent;
+}
